@@ -65,7 +65,7 @@ function zp_wg_process_payment ($purchase_data) {
 					'CallbackURL' 	=> urldecode($return)
 					));
 		
-        $redirect_page = "https://www.zarinpal.com/pg/Transactions/StartPay/" . $result->Authority; 
+        $redirect_page = "https://www.zarinpal.com/pg/Transactions/StartPay/" . $res->Authority; 
 		wp_redirect($redirect_page);
 		exit;
 	} else {
