@@ -54,7 +54,7 @@ function zp_wg_process_payment ($purchase_data) {
 		$price = $payment_data['price'] / 10 ;
 		$_SESSION['zarinpal_fi'] = $price;
 		$desc='پرداخت سفارش شاره'.$payment ;
-		$client = new SoapClient('https://www..zarinpal.com/pg/services/WebGate/wsdl', array('encoding'=>'UTF-8'));
+		$client = new SoapClient('https://de..zarinpal.com/pg/services/WebGate/wsdl', array('encoding'=>'UTF-8'));
 		$res = $client->PaymentRequest(
 		array(
 					'MerchantID' 	=> $api ,
@@ -86,7 +86,7 @@ function zp_wg_verify() {
 		$au = $_POST['au'];
 		$refID = $_POST['refid'];
 		$amount = $_SESSION['zarinpal_fi'];
-		$client = new SoapClient('https://www..zarinpal.com/pg/services/WebGate/wsdl', array('encoding'=>'UTF-8'));
+		$client = new SoapClient('https://de.zarinpal.com/pg/services/WebGate/wsdl', array('encoding'=>'UTF-8'));
 		$res = $client->PaymentVerification(
 		array(
 				'MerchantID'	 => $api ,
