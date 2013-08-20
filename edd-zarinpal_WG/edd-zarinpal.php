@@ -64,10 +64,14 @@ function zp_wg_process_payment ($purchase_data) {
 					'Mobile' 		=> '' ,
 					'CallbackURL' 	=> urldecode($return)
 					));
-		
-        $redirect_page = "https://www.zarinpal.com/pg/Transactions/StartPay/" . $res->Authority; 
-		wp_redirect($redirect_page);
-		exit;
+		if($res->Status==100){
+			$redirect_page = "https://www.zarinpal.com/pg/Transactions/StartPay/" . $res->Authority; 
+			wp_redirect($redirect_page);
+			exit;
+		}else{
+			echo'ERR: '.$res->Status;
+		}
+
 	} else {
 		edd_send_back_to_checkout('?payment-mode=' . $purchase_data['post_data']['edd-gateway']);
 	}
@@ -96,6 +100,8 @@ function zp_wg_verify() {
 		);
 		if (intval($res->status) == 100) {
 			edd_update_payment_status($payment, 'publish');
+		}else{
+			echo'ERR: '.$res->status;
 		}
 	}
 }
