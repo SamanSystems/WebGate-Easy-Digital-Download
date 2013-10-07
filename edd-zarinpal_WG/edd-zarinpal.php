@@ -10,7 +10,7 @@
 **/
 @session_start();
 
-function zp_wg_edd_rial ($formatted, $currency, $price) {
+function zpw_edd_rial ($formatted, $currency, $price) {
 	return $price . 'ریال';
 }
 add_filter( 'edd_rial_currency_filter_after', 'edd_rial', 10, 3 );
@@ -54,12 +54,12 @@ function zp_wg_process_payment ($purchase_data) {
 		$price = $payment_data['price'] / 10 ;
 		$_SESSION['zarinpal_fi'] = $price;
 		$desc='پرداخت سفارش شاره'.$payment ;
-		$client = new SoapClient('https://de..zarinpal.com/pg/services/WebGate/wsdl', array('encoding'=>'UTF-8'));
+		$client = new SoapClient('https://de.zarinpal.com/pg/services/WebGate/wsdl', array('encoding'=>'UTF-8'));
 		$res = $client->PaymentRequest(
 		array(
 					'MerchantID' 	=> $api ,
 					'Amount' 		=> $price ,
-					'Description' 	=> urlencode($desc) ,
+					'Description' 	=> $desc ,
 					'Email' 		=> $payment_data['user_email'] ,
 					'Mobile' 		=> '' ,
 					'CallbackURL' 	=> urldecode($return)
