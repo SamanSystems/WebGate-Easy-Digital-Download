@@ -65,7 +65,7 @@ function zp_wg_process_payment ($purchase_data) {
 					'CallbackURL' 	=> urldecode($return)
 					));
 		if($res->Status==100){
-			$redirect_page = "https://www.zarinpal.com/pg/Transactions/StartPay/" . $res->Authority; 
+			$redirect_page = 'https://www.zarinpal.com/pg/StartPay/' . $res->Authority; 
 			wp_redirect($redirect_page);
 			exit;
 		}else{
@@ -95,7 +95,7 @@ function zp_wg_verify() {
 		array(
 				'MerchantID'	 => $api ,
 				'Authority' 	 => $au ,
-				'Amount'		 => $amount
+				'Amount'	 => $amount
 				)
 		);
 		if (intval($res->status) == 100) {
