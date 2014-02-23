@@ -2,7 +2,7 @@
 /**
 	Plugin Name: Zarinpal Zarin Gate for EDD
 	Version: 1.5
-	Description: این افزونه درگاه <a href="https://zarinpal.com/" target="_blank">زرین پال</a> را به افزونه Easy Digital Downloads اضافه می&zwnj;کند. این افزونه با نسخه 1.4.1.1 سازگار است.
+	Description: این افزونه درگاه <a href="https://zarinpal.com/" target="_blank">زرین پال</a> را به افزونه Easy Digital Downloads اضافه می&zwnj;کند. این افزونه با نسخه  1.9.5 سازگار است.
 	Plugin URI: https://zarinpal.com/Labs/Details/WP-EDD
 	
 	Author: M.Amini
@@ -67,7 +67,7 @@ function zp_wg_process_payment ($purchase_data) {
 		if($res->Status==100){
 			$redirect_page = 'https://www.zarinpal.com/pg/StartPay/' . $res->Authority; 
 			wp_redirect($redirect_page);
-			exit;
+		exit;
 		}else{
 			echo'ERR: '.$res->Status;
 		}
@@ -79,16 +79,16 @@ function zp_wg_process_payment ($purchase_data) {
 add_action('edd_gateway_zarinpal', 'zp_wg_process_payment');
 
 function zp_wg_verify() {
+
 	global $edd_options;
-	if (isset($_GET['order']) and $_GET['order'] == 'zarinpal' and $_POST['au'] and $_POST['refid']) {
+	if (isset($_GET['order']) and $_GET['order'] == 'zarinpal' and $_GET['Authority'] and $_GET['Status']) {
 		$payment = $_SESSION['zarinpal_payment'];
 		if (edd_is_test_mode()) {
 			$api = '1';
 		} else {
 			$api = $edd_options['zarinpal_api'];
 		}
-		$au = $_POST['au'];
-		$refID = $_POST['refid'];
+		$au = $_GET['Authority'];
 		$amount = $_SESSION['zarinpal_fi'];
 		$client = new SoapClient('https://de.zarinpal.com/pg/services/WebGate/wsdl', array('encoding'=>'UTF-8'));
 		$res = $client->PaymentVerification(
@@ -98,10 +98,11 @@ function zp_wg_verify() {
 				'Amount'	 => $amount
 				)
 		);
-		if (intval($res->status) == 100) {
+		if (intval($res->Status) == 100) {
+
 			edd_update_payment_status($payment, 'publish');
 		}else{
-			echo'ERR: '.$res->status;
+			echo'ERR: '.$res->Status;
 		}
 	}
 }
