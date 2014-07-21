@@ -1,6 +1,6 @@
 <?php
 /**
-	Plugin Name: Zarinpal Zarin Gate for EDD
+	Plugin Name: Zarinpal Web Gate for EDD
 	Version: 2.0
 	Description: این افزونه درگاه <a href="https://zarinpal.com/" target="_blank">زرین پال</a> را به افزونه Easy Digital Downloads اضافه می&zwnj;کند. این افزونه با نسخه  1.9.5 سازگار است.
 	Plugin URI: https://zarinpal.com/Labs/Details/WP-EDD
