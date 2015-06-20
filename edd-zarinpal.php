@@ -1,6 +1,5 @@
 <?php
 /**
-<<<<<<< HEAD
  * Plugin Name: ZarinPal for EDD
  * Version: 1.0
  * Description: این افزونه درگاه پرداخت <a href="https://zarinpal.com">زرینپال</a> را به افزونه‌ی EDD اضافه می‌کند.
