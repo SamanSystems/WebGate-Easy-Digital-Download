@@ -18,21 +18,13 @@ if ( !function_exists( 'edd_rial' ) ) {
 	function edd_rial( $formatted, $currency, $price ) {
 		return $price . ' ریال';
 	}
+}
 	add_filter( 'edd_rial_currency_filter_after', 'edd_rial', 10, 3 );
-=======
-	Plugin Name: Zarinpal Web Gate for EDD
-	Version: 2.0
-	Description: این افزونه درگاه <a href="https://zarinpal.com/" target="_blank">زرین پال</a> را به افزونه Easy Digital Downloads اضافه می&zwnj;کند. این افزونه با نسخه  1.9.5 سازگار است.
-	Plugin URI: https://zarinpal.com/Labs/Details/WP-EDD
-	
-	Author: M.Amini
-	Author URI: http://haftir.ir
-**/
 @session_start();
 
 function zpw_edd_rial ($formatted, $currency, $price) {
 	return $price . 'ریال';
->>>>>>> origin/master
+
 }
 
 function add_zarinpal_gateway( $gateways ) {
