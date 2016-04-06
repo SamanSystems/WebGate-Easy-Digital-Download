@@ -58,7 +58,8 @@ function zp_process( $purchase_data ) {
 	if ( $payment ) {
 		@ delete_transient( 'edd_zarinpal_record' );
 		set_transient( 'edd_zarinpal_record', $payment );
-
+		$_SESSION['zp_price'] = $price;
+		$_SESSION['edd_zarinpal_record'] = $payment ;
 		$callback = add_query_arg( 'verify', 'zarinpal', get_permalink( $edd_options['success_page'] ) );
 		$amount = intval( $payment_data['price'] ) / 10;
 		$description = 'پرداخت صورت حساب ' . $purchase_data['purchase_key'];
@@ -95,36 +96,40 @@ add_action( 'edd_gateway_zarinpal', 'zp_process' );
 
 function zp_verify() {
 	global $edd_options;
+	if ( isset( $_GET['verify'] ) &&  $_GET['verify'] == 'zarinpal' && isset( $_GET['Status'] ) ) {
+	
 
-	if ( isset( $_GET['verify'] ) &&  $_GET['verify'] == 'zarinpal' && isset( $_GET['Status'] ) && ) {
-		$payment_id = get_transient( 'edd_zarinpal_record' );
-		delete_transient( 'edd_zarinpal_record' );
+		$payment_id =$_SESSION['edd_zarinpal_record'];
+		// get_transient( 'edd_zarinpal_record' );
+		
+		//delete_transient( 'edd_zarinpal_record' );
 
 		if ( $_GET['Status'] == 'OK' ) {
 			$endpoint = ( $edd_options['zp_deserver'] == '1' ) ? 'https://de.zarinpal.com/pg/services/WebGate/wsdl' : 'https://ir.zarinpal.com/pg/services/WebGate/wsdl';
 			$client = new nusoap_client( $endpoint, 'wsdl' );
 			$client->soap_defencoding = 'UTF-8';
-			$amount = intval( edd_get_payment_amount( $payment_id ) ) / 10;
-
+			//$amount = intval( edd_get_payment_amount( $payment_id ) ) / 10;
+			$amount = intval( edd_get_payment_amount( $payment_id) ) / 10;
 			$result = $client->call( 'PaymentVerification', array( array(
 				'MerchantID'		=>	$edd_options['zp_merchant'],
 				'Authority'			=>	esc_attr( $_GET['Authority'] ),
-				'Amount'			=>	$amount
+				'Amount'			=>	$amount 
 			) ) );
 			edd_empty_cart();
-
-			edd_insert_payment_note( $payment_id, 'نتیجه بازگشت: وضعیت: ' . $result['Status'] . ' و کد پرداخت: ' . $result['RefId'] );
+//print_r($result );
 			if ( $result['Status'] == 100 ) {
-				edd_update_payment_status( $payment_id, 'publish' );
-				edd_send_to_success_page();
+			//update_post_meta( $payment, '_edd_payment_ppalrefnum',$Refnumber);
+			edd_insert_payment_note( $payment_id, 'نتیجه بازگشت: وضعیت: ' . $result['Status'] . ' و کد پرداخت: ' . $result['RefId'] );
+			edd_update_payment_status( $payment_id, 'publish' );
+			edd_send_to_success_page();
 			} else {
 				edd_update_payment_status( $payment_id, 'failed' );
-				wp_redirect( get_permalink( $edd_options['failure_page'] ) );
+				//wp_redirect( get_permalink( $edd_options['failure_page'] ) );
 			}
 			exit;
 		} else {
 			edd_update_payment_status( $payment_id, 'revoked' );
-			wp_redirect( get_permalink( $edd_options['failure_page'] ) );
+			//wp_redirect( get_permalink( $edd_options['failure_page'] ) );
 			exit;
 		}
 	}
