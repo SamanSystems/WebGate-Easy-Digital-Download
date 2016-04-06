@@ -96,7 +96,7 @@ add_action( 'edd_gateway_zarinpal', 'zp_process' );
 function zp_verify() {
 	global $edd_options;
 
-	if ( isset( $_GET['verify'] ) &&  $_GET['verify'] == 'zarinpal' && isset( $_GET['Status'] ) && false != ( get_transient( 'edd_zarinpal_record' ) ) ) {
+	if ( isset( $_GET['verify'] ) &&  $_GET['verify'] == 'zarinpal' && isset( $_GET['Status'] ) && ) {
 		$payment_id = get_transient( 'edd_zarinpal_record' );
 		delete_transient( 'edd_zarinpal_record' );
 
