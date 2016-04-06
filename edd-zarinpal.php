@@ -58,7 +58,7 @@ function zp_process( $purchase_data ) {
 	if ( $payment ) {
 		@ delete_transient( 'edd_zarinpal_record' );
 		set_transient( 'edd_zarinpal_record', $payment );
-		$_SESSION['zp_price'] = $price;
+
 		$_SESSION['edd_zarinpal_record'] = $payment ;
 		$callback = add_query_arg( 'verify', 'zarinpal', get_permalink( $edd_options['success_page'] ) );
 		$amount = intval( $payment_data['price'] ) / 10;
@@ -124,12 +124,12 @@ function zp_verify() {
 			edd_send_to_success_page();
 			} else {
 				edd_update_payment_status( $payment_id, 'failed' );
-				//wp_redirect( get_permalink( $edd_options['failure_page'] ) );
+				wp_redirect( get_permalink( $edd_options['failure_page'] ) );
 			}
 			exit;
 		} else {
 			edd_update_payment_status( $payment_id, 'revoked' );
-			//wp_redirect( get_permalink( $edd_options['failure_page'] ) );
+			wp_redirect( get_permalink( $edd_options['failure_page'] ) );
 			exit;
 		}
 	}
