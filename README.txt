@@ -1,11 +1,13 @@
 === Plugin Name ===
 Contributors: Ehsaan, Amini7
 Tags: zarinpal, edd, iran, persian, tomans, rials
-Tested up to: 4.5es/gpl-2.0.html
+Tested up to: 4.5
+License : /gpl-2.0.html
 Requires at least: 3.1
+Stable tag: trunk
 
 This plugin allows you to add Zarinpal Payment gateway to EDD plugin in a clean way!
-افزونه پرداخت آنلاین Easy Digital Download
+افزونه پرداخت آنلاین زرین پال Easy Digital Download
 
 == Description ==
 
