@@ -8,7 +8,6 @@
  * Author: Ehsaan , Masoud Amini
  * Author: http://iehsan.ir/
  */
-require_once( 'includes/auto-update.php' );
 
 
 if (!function_exists('edd_rial')) {
