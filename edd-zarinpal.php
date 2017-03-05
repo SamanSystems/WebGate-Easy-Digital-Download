@@ -132,7 +132,7 @@ function zp_verify() {
             }
             exit;
         } else {
-            edd_update_payment_status($payment_id, 'revoked');
+            edd_update_payment_status($payment_id, 'failed');
             wp_redirect(get_permalink($edd_options['failure_page']));
             exit;
         }
