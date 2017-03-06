@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: ZarinPal Payment for EDD
- * Version: 1.1
+ * Version: 1.2
  * Description: این افزونه درگاه پرداخت <a href="https://zarinpal.com">زرینپال</a> را به افزونه‌ی EDD اضافه می‌کند.
  * Plugin URI: http://eddpersian.ir/
  * Author: Ehsaan , Masoud Amini
