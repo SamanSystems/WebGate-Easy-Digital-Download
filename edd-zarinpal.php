@@ -123,7 +123,7 @@ function zp_verify() {
 //print_r($result );
             if ($result->Status == 100) {
                 //update_post_meta( $payment, '_edd_payment_ppalrefnum',$Refnumber);
-                edd_insert_payment_note($payment_id, 'نتیجه بازگشت: وضعیت: ' . $result->Status . ' و کد پرداخت: ' . $result->RefId);
+                edd_insert_payment_note($payment_id, 'نتیجه بازگشت: وضعیت: ' . $result->Status . ' و کد پرداخت: ' . $result->RefID);
                 edd_update_payment_status($payment_id, 'publish');
                 edd_send_to_success_page();
             } else {
